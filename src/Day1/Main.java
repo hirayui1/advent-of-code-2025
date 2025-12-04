@@ -58,6 +58,11 @@ Attached document is in the resources/day1
 public class Main{
     public static void main(String[] args) throws Exception {
         String path = "src\\resources\\day1_input";
+        //part1(path);
+        part2(path);
+    }
+
+    public static void part1(String path) throws Exception {
         List<String> lines = IOUtil.readFile(path); // file to list
         int countZeroes = 0;
         int combo = 50;
@@ -68,9 +73,9 @@ public class Main{
             remainder = remainder > 100 ? remainder % 100 : remainder < 100 ? remainder % 100 : remainder; // reduce the operations back to range
             switch (s) {
                 case String t when !t.isEmpty() && t.charAt(0) == 'L'  -> // check first char, L or R
-                    combo -= remainder ; // do the operations
+                        combo -= remainder ; // do the operations
                 case String t when !t.isEmpty() && t.charAt(0) == 'R' ->
-                    combo += remainder;
+                        combo += remainder;
                 default -> throw new Exception("incorrect input at line " + i); // notify if we don't find L/R as first char
             }
 
@@ -78,6 +83,47 @@ public class Main{
             else if (combo > 99) combo -= 100;
             if (combo == 0) countZeroes++;
             System.out.println("for line " + i + ": request: " + s + ", rotation: " + combo);
+            i++;
+        }
+        System.out.println("\nZeroes reached " + countZeroes + " times.");
+    }
+
+    public static void part2(String path) throws Exception {
+        List<String> lines = IOUtil.readFile(path); // file to list
+        int countZeroes = 0;
+        int combo = 50;
+        int i = 1;
+        int remainder, n;
+
+        for (String s : lines) { // for each operation
+            n = Integer.valueOf(s.substring(1));
+            if (n > 99) {
+                System.out.print("it passes 0 " + ((n / 100)) + " times");
+                countZeroes += (n / 100);
+            }
+            remainder = n > 100 ? n % 100 : n < 100 ? n % 100 : n; // reduce the operations back to range
+            switch (s) {
+                case String t when !t.isEmpty() && t.charAt(0) == 'L'  -> { // check first char, L or R
+                    if (combo != 0 && combo - remainder < 0) { // if its passing over 0 within the range such as (0 -> L5 -> 95)
+                        System.out.print("L+1! ");
+                        countZeroes++;
+                    }
+                    combo -= remainder ;
+                }
+                case String t when !t.isEmpty() && t.charAt(0) == 'R' -> {
+                    if (combo + remainder > 99 && combo + remainder != 100) {
+                        System.out.print("R+1! ");
+                        countZeroes++;
+                    }
+                    combo += remainder;
+                }
+                default -> throw new Exception("incorrect input at line " + i); // notify if we don't find L/R as first char
+            }
+
+            if (combo < 0) combo += 100; // check if number went above or below the range
+            else if (combo > 99) combo -= 100;
+            if (combo == 0) countZeroes++;
+            System.out.println("for line " + i + ": count: " + countZeroes + ", request: " + s + ", rotation: " + combo);
             i++;
         }
         System.out.println("\nZeroes reached " + countZeroes + " times.");
