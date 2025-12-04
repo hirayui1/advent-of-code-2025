@@ -7,3 +7,5 @@ As the dial is circular, 99 + R1 is 0 and 0 + L1 is 99.
 The password (answer) however is not the combinations of these operations but the count of how many times you hit 0 with given operations. Honestly the only struggle was realising that they can give any number such as L1250 or R1250.
 
 In the file given to me by AoC I had 4059 lines of operations, and the dial hit 0 997 times.
+
+After submitting the answer, a second part to the same problem appeared, which took me a while to notice. In short, it would ask me to also calculate how many times does the dial pass over 0 without stopping. For the same file, with the update, the answer was 5978.
