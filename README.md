@@ -9,3 +9,9 @@ The password (answer) however is not the combinations of these operations but th
 In the file given to me by AoC I had 4059 lines of operations, and the dial hit 0 997 times.
 
 After submitting the answer, a second part to the same problem appeared, which took me a while to notice. In short, it would ask me to also calculate how many times does the dial pass over 0 without stopping. For the same file, with the update, the answer was 5978.
+## Day 2 - Remove invalid IDs (07/12)
+We are in a gift shop and the register has a bunch of IDs some of which are invalid. There is a certain pattern for them which is simply any repeating sequence of numbers such as 11111,494949,3859638596 and we are to return the sum of all the invalid IDs.
+
+First part was easy and fun as well. The second part was absolute horror. I had some issues with somehow having overlapping ranges but I could not detect it by debugging the output. So I ended up using a HashSet to make sure that the invalid IDs are unique, which I think is what solved my issue but I am still not quite sure as it was the most elusive bug I've ever had.
+
+I really enjoy dabbling into Java Streams such as a quick sum of the HashSet items but I am still not quite sure if I should incorporate them more into my code, will it become too much? Regardless, they are extremely useful.
